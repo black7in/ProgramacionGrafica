@@ -1,98 +1,90 @@
-﻿using OpenTK.Windowing.Desktop;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using OpenTK.Windowing.Common;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+using OpenTK.Windowing.Desktop;
 using OpenTK.Graphics.OpenGL4;
-using ShaderOpenTK;
+using OpenTK.Mathematics;
 
-namespace HelloOpenTK
+
+namespace OpenTKCasa3D
 {
     public class Game : GameWindow
     {
         public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
 
-        protected override void OnUpdateFrame(FrameEventArgs e)
-        {
-            if (KeyboardState.IsKeyDown(Keys.Escape)){
-                Close();
-            }
+        Shader shader;
 
-            base.OnUpdateFrame(e);
-        }
+        private int vertexBufferObject;
+        private int vertexArrayObject;
+        private int elementBufferObject;
 
-        ///////////////////////////////////////////
-        ///
+        private Matrix4 projection;
+        private Matrix4 view;
+        private Matrix4 model;
 
-        float[] vertices = {
-            -0.5f, -0.5f, 0.0f, //Bottom-left vertex
-            0.5f, -0.5f, 0.0f, //Bottom-right vertex
-            0.0f,  0.5f, 0.0f  //Top vertex
-        };
+        Casa casa1;
+        Casa casa2;
+        Casa casa3;
 
-        int vertexBufferObject;
+        protected override void OnLoad() {
+            base.OnLoad();
 
-        int vertexArrayObject;
-
-        private Shader shader;
-        protected override void OnLoad()
-        {
-            GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+            GL.ClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 
             vertexBufferObject = GL.GenBuffer();
-
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
-
-            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-
+           
             vertexArrayObject = GL.GenVertexArray();
             GL.BindVertexArray(vertexArrayObject);
 
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
-
             GL.EnableVertexAttribArray(0);
 
-            shader = new Shader("D:/Programacion Grafica/HelloOpenTK/Shaders/shader.vert", "D:/Programacion Grafica/HelloOpenTK/Shaders/shader.frag");
+            elementBufferObject = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, elementBufferObject);
+            
+            shader = new Shader("../../../Shaders/shader.vert", "../../../Shaders/shader.frag");
 
-            shader.Use();
+            view = Matrix4.CreateTranslation(0.0f, 0.0f, -2.0f);
+            projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), Size.X / (float)Size.Y, 0.1f, 100.0f);
+            model = Matrix4.Identity * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(45.0f));
 
+            shader.SetMatrix4("model", model);
+            shader.SetMatrix4("projection", projection);
+            shader.SetMatrix4("view", view);
 
-            base.OnLoad();
+            casa1 = new Casa(shader, new Vector3( -0.5f, 0.0f, 0.0f));
+            casa2 = new Casa(shader, new Vector3( 0.5f, 0.0f, 0.0f));
+            casa3 = new Casa(shader, new Vector3( 0.0f, -0.5f, 0.0f));
         }
 
-        protected override void OnRenderFrame(FrameEventArgs e)
-        {
-            GL.Clear(ClearBufferMask.ColorBufferBit);
-
-            shader.Use();
+        protected override void OnRenderFrame(FrameEventArgs args) {
+            base.OnRenderFrame(args);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            GL.Enable(EnableCap.DepthTest);
             GL.BindVertexArray(vertexArrayObject);
+            shader.Use();
 
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            casa1.dibujar();
+            casa2.dibujar();
+            casa3.dibujar();
 
-            SwapBuffers();
-
-            base.OnRenderFrame(e);
+            Context.SwapBuffers();
         }
-        protected override void OnResize(ResizeEventArgs e)
-        {
-            GL.Viewport(0, 0, Size.X, Size.Y);
 
+        protected override void OnResize(ResizeEventArgs e) {
             base.OnResize(e);
+            GL.Viewport(0, 0, Size.X, Size.Y);
         }
 
-        protected override void OnUnload()
-        {
-            // Unbind all the resources by binding the targets to 0/null.
+        protected override void OnUnload() {
+            base.OnUnload();
+
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.BindVertexArray(0);
             GL.UseProgram(0);
-
-            // Delete all the resources.
-            GL.DeleteBuffer(vertexBufferObject);
-            GL.DeleteVertexArray(vertexArrayObject);
-
-            GL.DeleteProgram(shader.Handle);
-
-            base.OnUnload();
         }
-    }
 
+    }
 }

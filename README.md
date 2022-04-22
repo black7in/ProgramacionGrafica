@@ -1,2 +1,1 @@
-# HelloOpenTK
-# Programacion Grafica
+# Casa3D con OpenTK

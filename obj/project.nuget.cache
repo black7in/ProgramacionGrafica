@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "S7ijLe9YRQoTkkpFL0WMaR7c+iFqcgJ8fOPKticI98QcpYMdPoSLtqbg/KevAftFtaJJasyVsaDWUnQmnLwbmw==",
+  "dgSpecHash": "z/zXBwgThGXS/nQjbVl1208d8iXiPw79YI9GL/mvB/RhKwnRCABDg56bymFbPuZc1h+5fszvWr0Dz7HGdaweow==",
   "success": true,
-  "projectFilePath": "D:\\Programacion Grafica\\HelloOpenTK\\HelloOpenTK.csproj",
+  "projectFilePath": "D:\\Programacion Grafica\\TareasEnviadas\\OpenTKCasa3D.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\opentk\\4.7.1\\opentk.4.7.1.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\opentk.compute\\4.7.1\\opentk.compute.4.7.1.nupkg.sha512",

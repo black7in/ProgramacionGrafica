@@ -1,22 +1,18 @@
 ﻿using System;
-using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using OpenTK.Mathematics;
 
-namespace HelloOpenTK
+namespace OpenTKCasa3D
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            var nativeWindowSettings = new NativeWindowSettings()
-            {
-                Size = new Vector2i(800, 600),
-                Title = "Hello OpenTK",
+        static void Main(string[] args) {
+            var nativeWindowSettings = new NativeWindowSettings() {
+                Size = new Vector2i(1000, 800),
+                Title = "Primera practica.",
             };
 
-            using (var game = new Game(GameWindowSettings.Default, nativeWindowSettings))
-            {
+            using (var game = new Game(GameWindowSettings.Default, nativeWindowSettings)) {
                 game.Run();
             }
         }

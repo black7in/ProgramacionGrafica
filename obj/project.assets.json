@@ -362,11 +362,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Programacion Grafica\\HelloOpenTK\\HelloOpenTK.csproj",
-      "projectName": "HelloOpenTK",
-      "projectPath": "D:\\Programacion Grafica\\HelloOpenTK\\HelloOpenTK.csproj",
+      "projectUniqueName": "D:\\Programacion Grafica\\TareasEnviadas\\OpenTKCasa3D.csproj",
+      "projectName": "OpenTKCasa3D",
+      "projectPath": "D:\\Programacion Grafica\\TareasEnviadas\\OpenTKCasa3D.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "D:\\Programacion Grafica\\HelloOpenTK\\obj\\",
+      "outputPath": "D:\\Programacion Grafica\\TareasEnviadas\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
