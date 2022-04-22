@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "OpenTKCasa3D/1.0.0": {
+      "OpentkProyect/1.0.0": {
         "dependencies": {
           "OpenTK": "4.7.1"
         },
         "runtime": {
-          "OpenTKCasa3D.dll": {}
+          "OpentkProyect.dll": {}
         }
       },
       "OpenTK/4.7.1": {
@@ -159,7 +159,7 @@
     }
   },
   "libraries": {
-    "OpenTKCasa3D/1.0.0": {
+    "OpentkProyect/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

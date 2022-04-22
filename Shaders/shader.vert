@@ -10,5 +10,6 @@ uniform mat4 origen;
 
 void main(void)
 {
-	gl_Position = vec4(aPosition, 1.0) * model * view *  projection * origen;
+	// gl_Position = vec4(aPosition, 1.0) * model * view *  projection;
+	gl_Position = vec4(aPosition, 1.0) * model * view * projection;
 }

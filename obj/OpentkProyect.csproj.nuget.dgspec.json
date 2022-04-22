@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programacion Grafica\\ProgramacionGrafica\\OpenTKCasa3D.csproj": {}
+    "D:\\Programacion Grafica\\ProgramacionGrafica\\OpentkProyect.csproj": {}
   },
   "projects": {
-    "D:\\Programacion Grafica\\ProgramacionGrafica\\OpenTKCasa3D.csproj": {
+    "D:\\Programacion Grafica\\ProgramacionGrafica\\OpentkProyect.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programacion Grafica\\ProgramacionGrafica\\OpenTKCasa3D.csproj",
-        "projectName": "OpenTKCasa3D",
-        "projectPath": "D:\\Programacion Grafica\\ProgramacionGrafica\\OpenTKCasa3D.csproj",
+        "projectUniqueName": "D:\\Programacion Grafica\\ProgramacionGrafica\\OpentkProyect.csproj",
+        "projectName": "OpentkProyect",
+        "projectPath": "D:\\Programacion Grafica\\ProgramacionGrafica\\OpentkProyect.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
         "outputPath": "D:\\Programacion Grafica\\ProgramacionGrafica\\obj\\",
         "projectStyle": "PackageReference",
