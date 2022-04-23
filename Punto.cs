@@ -34,7 +34,7 @@ namespace OpentkProyect
         }
 
         public void Imprimir() {
-            Console.WriteLine("Punto[ X: " + x + "Y: " + y + "Z: " + z + " ]");
+            Console.WriteLine("Punto[ X: " + x + " Y: " + y + " Z: " + z + " ]");
         }
 
     }

@@ -24,7 +24,10 @@ namespace OpentkProyect
         public Parte(Shader shader, string name, List<Punto> vertices) {
             this.shader = shader;
             this.name = name;
-            this.vertices = vertices;
+            this.vertices = new List<Punto>();
+            foreach (Punto k in vertices) {
+                this.vertices.Add(k);
+            }
         }
 
         public Parte(Parte p) {
@@ -66,6 +69,13 @@ namespace OpentkProyect
             }
             return result;
         }
+
+        public void MoveTo(Punto origen) {
+            var move = Matrix4.Identity;
+            move = move * Matrix4.CreateTranslation(origen.x, origen.y, origen.z);
+
+            shader.SetMatrix4("origen", move);
+        }
         public void Dibujar() {
             float[] array = CopyToArray();
             shader.SetVector3("objectColor", new Vector3(0.0f, 0.0f, 0.0f));
@@ -73,8 +83,12 @@ namespace OpentkProyect
             GL.DrawArrays(PrimitiveType.LineLoop, 0, vertices.Count);
         }
         public void ImprimirLista() {
+            Console.WriteLine("----------------------------------");
             Console.WriteLine("Nombre: " + name);
-            
+            foreach ( Punto k in vertices) {
+                k.Imprimir();
+            }
+            Console.WriteLine("----------------------------------");
         }
 
     }

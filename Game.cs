@@ -24,6 +24,7 @@ namespace OpentkProyect
         private Matrix4 model;
 
         Objeto casa;
+        Objeto casa2;
         protected override void OnLoad() {
             base.OnLoad();
 
@@ -37,21 +38,16 @@ namespace OpentkProyect
 
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
-
-            elementBufferObject = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, elementBufferObject);
             
             shader = new Shader("../../../Shaders/shader.vert", "../../../Shaders/shader.frag");
 
             view = Matrix4.CreateTranslation(0.0f, 0.0f, -1.0f);
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(50.0f), Size.X / (float)Size.Y, 0.1f, 100.0f);
-            model = Matrix4.Identity * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(40.0f)); //* Matrix4.CreateRotationX(MathHelper.DegreesToRadians(-5.5f));
+            model = Matrix4.Identity * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(40.0f));
 
             shader.SetMatrix4("model", model);
             shader.SetMatrix4("projection", projection);
             shader.SetMatrix4("view", view);
-
-            casa = new Objeto("Casa");
 
             /*  PARTES DEL OBJETO CASA.
              *  techo1
@@ -113,6 +109,7 @@ namespace OpentkProyect
             ventanaLateralDerecho.Add(new Punto( 0.10f,  0.05f, 0.15f));
             ventanaLateralDerecho.Add(new Punto( 0.10f, -0.15f, 0.15f));
 
+            casa = new Objeto("CASA", new Punto(0.5f, 0.0f, 0.0f));
             casa.Add(techo1);
             casa.Add(techo2);
             casa.Add(muroFrontal);
@@ -121,6 +118,22 @@ namespace OpentkProyect
             casa.Add(muroLateralIzquiero);
             casa.Add(puerta);
             casa.Add(ventanaLateralDerecho);
+
+            List <Parte> lisParte = new List<Parte>();
+            lisParte.Add(techo1);
+            lisParte.Add(techo2);
+            lisParte.Add(muroFrontal);
+            lisParte.Add(muroTrasero);
+            lisParte.Add(muroLateralIzquiero);
+            lisParte.Add(muroLateralDerecho);
+            lisParte.Add(puerta);
+            lisParte.Add(ventanaLateralDerecho);
+
+            casa2 = new Objeto("CASA 2", new Punto(-0.5f, 0.0f, 0.0f), lisParte);
+
+            //Ver Partes y Puntos
+            casa.Imprimir();
+            
         }
 
         protected override void OnRenderFrame(FrameEventArgs args) {
@@ -131,6 +144,7 @@ namespace OpentkProyect
             shader.Use();
 
             casa.Dibujar();
+            casa2.Dibujar();
 
             Context.SwapBuffers();
         }
