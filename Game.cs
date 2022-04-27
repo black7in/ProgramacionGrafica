@@ -17,7 +17,6 @@ namespace OpentkProyect
 
         private int vertexBufferObject;
         private int vertexArrayObject;
-        private int elementBufferObject;
 
         private Matrix4 projection;
         private Matrix4 view;
@@ -62,52 +61,52 @@ namespace OpentkProyect
              */
 
             Parte techo1 = new Parte(shader, "Techo 1");
-            techo1.Add(new Punto(-0.15f, 0.10f, -0.15f));
-            techo1.Add(new Punto(-0.15f, 0.20f, 0.0f));
-            techo1.Add(new Punto(0.15f, 0.20f, 0.0f));
-            techo1.Add(new Punto(0.15F, 0.10f, -0.15f));
+            techo1.Add(1, new Punto(-0.15f, 0.10f, -0.15f));
+            techo1.Add(2, new Punto(-0.15f, 0.20f, 0.0f));
+            techo1.Add(3, new Punto(0.15f, 0.20f, 0.0f));
+            techo1.Add(4, new Punto(0.15F, 0.10f, -0.15f));
 
             Parte techo2 = new Parte(shader, "Techo 2");
-            techo2.Add(new Punto(-0.15f, 0.10f, 0.15f));
-            techo2.Add(new Punto(-0.15f, 0.20f, 0.0f));
-            techo2.Add(new Punto(0.15f, 0.20f, 0.0f));
-            techo2.Add(new Punto(0.15f, 0.10f, 0.15f));
+            techo2.Add(1, new Punto(-0.15f, 0.10f, 0.15f));
+            techo2.Add(2, new Punto(-0.15f, 0.20f, 0.0f));
+            techo2.Add(3, new Punto(0.15f, 0.20f, 0.0f));
+            techo2.Add(4, new Punto(0.15f, 0.10f, 0.15f));
 
             Parte muroFrontal = new Parte(shader, "Muro Frontal");
-            muroFrontal.Add(new Punto(-0.15f, -0.20f, 0.15f));
-            muroFrontal.Add(new Punto(-0.15f, -0.20f, -0.15f));
-            muroFrontal.Add(new Punto(-0.15f, 0.10f, -0.15f));
-            muroFrontal.Add(new Punto(-0.15f, 0.10f, 0.15f));
+            muroFrontal.Add(1, new Punto(-0.15f, -0.20f, 0.15f));
+            muroFrontal.Add(2, new Punto(-0.15f, -0.20f, -0.15f));
+            muroFrontal.Add(3, new Punto(-0.15f, 0.10f, -0.15f));
+            muroFrontal.Add(4, new Punto(-0.15f, 0.10f, 0.15f));
 
             Parte muroTrasero = new Parte(shader, "Muro Trasero");
-            muroTrasero.Add(new Punto(0.15f, -0.20f, 0.15f));
-            muroTrasero.Add(new Punto(0.15f, 0.10f, 0.15f));
-            muroTrasero.Add(new Punto(0.15F,  0.10f, -0.15f));
-            muroTrasero.Add(new Punto(0.15F, -0.20f, -0.15f));
+            muroTrasero.Add(5, new Punto(0.15f, -0.20f, 0.15f));
+            muroTrasero.Add(6, new Punto(0.15f, 0.10f, 0.15f));
+            muroTrasero.Add(7, new Punto(0.15F,  0.10f, -0.15f));
+            muroTrasero.Add(8, new Punto(0.15F, -0.20f, -0.15f));
 
             Parte muroLateralDerecho = new Parte(shader, "Muro Lateral");
-            muroLateralDerecho.Add(new Punto(-0.15f, -0.20f, 0.15f));
-            muroLateralDerecho.Add(new Punto(-0.15f, 0.10f, 0.15f));
-            muroLateralDerecho.Add(new Punto(0.15f, 0.10f, 0.15f));
-            muroLateralDerecho.Add(new Punto(0.15f, -0.20f, 0.15f));
+            muroLateralDerecho.Add(1, new Punto(-0.15f, -0.20f, 0.15f));
+            muroLateralDerecho.Add(2, new Punto(-0.15f, 0.10f, 0.15f));
+            muroLateralDerecho.Add(3, new Punto(0.15f, 0.10f, 0.15f));
+            muroLateralDerecho.Add(4, new Punto(0.15f, -0.20f, 0.15f));
 
             Parte muroLateralIzquiero = new Parte(shader, "Muro Lateral Izquierdo");
-            muroLateralIzquiero.Add(new Punto(-0.15f, -0.20f, -0.15f));
-            muroLateralIzquiero.Add(new Punto(-0.15f, 0.10f, -0.15f));
-            muroLateralIzquiero.Add(new Punto(0.15F, 0.10f, -0.15f));
-            muroLateralIzquiero.Add(new Punto(0.15F, -0.20f, -0.15f));
+            muroLateralIzquiero.Add(1, new Punto(-0.15f, -0.20f, -0.15f));
+            muroLateralIzquiero.Add(2, new Punto(-0.15f, 0.10f, -0.15f));
+            muroLateralIzquiero.Add(3, new Punto(0.15F, 0.10f, -0.15f));
+            muroLateralIzquiero.Add(4, new Punto(0.15F, -0.20f, -0.15f));
 
             Parte puerta = new Parte(shader, "Puerta");
-            puerta.Add(new Punto(-0.15f, -0.20f, 0.08f));
-            puerta.Add(new Punto(-0.15f,  0.05f, 0.08f));
-            puerta.Add(new Punto(-0.15f, 0.05f, -0.08f));
-            puerta.Add(new Punto(-0.15f, -0.20f, -0.08f));
+            puerta.Add(5, new Punto(-0.15f, -0.20f, 0.08f));
+            puerta.Add(6, new Punto(-0.15f,  0.05f, 0.08f));
+            puerta.Add(7, new Punto(-0.15f, 0.05f, -0.08f));
+            puerta.Add(8, new Punto(-0.15f, -0.20f, -0.08f));
 
             Parte ventanaLateralDerecho = new Parte(shader, "Ventana Lateral Derecho");
-            ventanaLateralDerecho.Add(new Punto(-0.10f, -0.15f, 0.15f));
-            ventanaLateralDerecho.Add(new Punto(-0.10f,  0.05f, 0.15f));
-            ventanaLateralDerecho.Add(new Punto( 0.10f,  0.05f, 0.15f));
-            ventanaLateralDerecho.Add(new Punto( 0.10f, -0.15f, 0.15f));
+            ventanaLateralDerecho.Add(1, new Punto(-0.10f, -0.15f, 0.15f));
+            ventanaLateralDerecho.Add(2, new Punto(-0.10f,  0.05f, 0.15f));
+            ventanaLateralDerecho.Add(3, new Punto( 0.10f,  0.05f, 0.15f));
+            ventanaLateralDerecho.Add(4, new Punto( 0.10f, -0.15f, 0.15f));
 
             casa = new Objeto("CASA", new Punto(0.5f, 0.0f, 0.0f));
             casa.Add(techo1);
@@ -119,17 +118,15 @@ namespace OpentkProyect
             casa.Add(puerta);
             casa.Add(ventanaLateralDerecho);
 
-            List <Parte> lisParte = new List<Parte>();
-            lisParte.Add(techo1);
-            lisParte.Add(techo2);
-            lisParte.Add(muroFrontal);
-            lisParte.Add(muroTrasero);
-            lisParte.Add(muroLateralIzquiero);
-            lisParte.Add(muroLateralDerecho);
-            lisParte.Add(puerta);
-            lisParte.Add(ventanaLateralDerecho);
-
-            casa2 = new Objeto("CASA 2", new Punto(-0.5f, 0.0f, 0.0f), lisParte);
+            casa2 = new Objeto("CASA", new Punto(-0.5f, 0.0f, 0.0f));
+            casa2.Add(techo1);
+            casa2.Add(techo2);
+            casa2.Add(muroFrontal);
+            casa2.Add(muroTrasero);
+            casa2.Add(muroLateralDerecho);
+            casa2.Add(muroLateralIzquiero);
+            casa2.Add(puerta);
+            casa2.Add(ventanaLateralDerecho);
 
             //Ver Partes y Puntos
             casa.Imprimir();
@@ -161,6 +158,5 @@ namespace OpentkProyect
             GL.BindVertexArray(0);
             GL.UseProgram(0);
         }
-
     }
 }

@@ -21,6 +21,11 @@ namespace OpentkProyect
             set { _z = value; }
         }
 
+        public Punto() {
+            x = 0.0f;
+            y = 0.0f;
+            z = 0.0f;
+        }
         public Punto(float x, float y, float z) {
             this.x = x;
             this.y = y;
@@ -33,8 +38,8 @@ namespace OpentkProyect
             this.z = p.z;
         }
 
-        public void Imprimir() {
-            Console.WriteLine("Punto[ X: " + x + " Y: " + y + " Z: " + z + " ]");
+        public string toString() {
+            return "[ X: " + x + " Y: " + y + " Z: " + z + " ]";
         }
 
     }
