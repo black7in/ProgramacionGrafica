@@ -9,7 +9,7 @@ namespace OpentkProyect
         private string _name;
         private Dictionary<string, Parte> lisParte;
         private Punto origen;
-        string name {
+        public string name {
             get { return _name; }
             set { _name = value; }
         }

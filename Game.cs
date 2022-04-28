@@ -22,6 +22,7 @@ namespace OpentkProyect
         private Matrix4 view;
         private Matrix4 model;
 
+        Escenario escenario;
         Objeto casa;
         Objeto casa2;
         protected override void OnLoad() {
@@ -84,37 +85,24 @@ namespace OpentkProyect
             rightWall.Add(3, new Punto(0.0f,  0.20f,  0.15f));
             rightWall.Add(4, new Punto(0.0f, -0.20f,  0.15f));
             
-            //Parte roof1 = new Parte(shader, "Techo1", new Punto(0.0f, 0.0f, 0.0f));
-            //roof1.Add(1, new Punto());
-
-            Parte test = new Parte(shader, "test", new Punto(0.0f, 0.0f, 0.0f), 0.0f);
-            test.Add(1, new Punto(-1.0f, 0.0f, 0.0f));
-            test.Add(2, new Punto(1.0f, 0.0f, 0.0f));
-
-            Parte test2 = new Parte(shader, "test2", new Punto(0.0f, 0.0f, 0.0f), 0.0f);
-            test2.Add(1, new Punto(0.0f, -1.0f, 0.0f));
-            test2.Add(2, new Punto(0.0f, 1.0f, 0.0f));
-
-            casa = new Objeto("Casa", new Punto(0.0f, 0.0f, 0.0f));
-
+            casa = new Objeto("Casa", new Punto(0.5f, 0.0f, 0.0f));
             casa.Add(frontWall);
             casa.Add(rearWall);
             casa.Add(leftWall);
             casa.Add(rightWall);
 
-         
+            casa2 = new Objeto("Casa 2", new Punto(-0.5f, 0.0f, 0.0f));
+            casa2.Add(frontWall);
+            casa2.Add(rearWall);
+            casa2.Add(leftWall);
+            casa2.Add(rightWall);
 
-            casa2 = new Objeto("Casa 2", new Punto(0.0f, 0.0f, 0.0f));
+            escenario = new Escenario("Mi Primero Escenario");
+            escenario.Add(casa);
+            escenario.Add(casa2);
 
-            casa2.Add(test);
-            casa2.Add(test2);
-            //casa2.Add(frontWall);
-            //casa2.Add(rearWall);
-            //casa2.Add(leftWall);
-            //casa2.Add(rightWall);
             //Ver Partes y Puntos
             //casa.Imprimir();
-
         }
 
         protected override void OnRenderFrame(FrameEventArgs args) {
@@ -124,7 +112,7 @@ namespace OpentkProyect
             GL.BindVertexArray(vertexArrayObject);
             shader.Use();
 
-            casa.Dibujar();
+            escenario.Dibujar();
             //casa2.Dibujar();
 
             Context.SwapBuffers();
