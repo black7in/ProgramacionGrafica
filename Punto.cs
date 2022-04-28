@@ -38,6 +38,12 @@ namespace OpentkProyect
             this.z = p.z;
         }
 
+        public Punto Sum(Punto p) {
+            x = x + p.x;
+            y = y + p.y;
+            z = z + p.z;
+            return this;
+        }
         public string toString() {
             return "[ X: " + x + " Y: " + y + " Z: " + z + " ]";
         }

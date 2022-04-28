@@ -40,11 +40,11 @@ namespace OpentkProyect
             
             shader = new Shader("../../../Shaders/shader.vert", "../../../Shaders/shader.frag");
 
-            view = Matrix4.CreateTranslation(0.0f, 0.0f, -1.0f);
+            view = Matrix4.CreateTranslation(0.0f, 0.0f, -1.5f);
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(50.0f), Size.X / (float)Size.Y, 0.1f, 100.0f);
-            model = Matrix4.Identity * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(40.0f));
+            //model = Matrix4.Identity * Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(45.0f));
 
-            shader.SetMatrix4("model", model);
+            //shader.SetMatrix4("model", model);
             shader.SetMatrix4("projection", projection);
             shader.SetMatrix4("view", view);
 
@@ -60,77 +60,61 @@ namespace OpentkProyect
              *  ventanaLateralDerecho
              */
 
-            Parte techo1 = new Parte(shader, "Techo 1");
-            techo1.Add(1, new Punto(-0.15f, 0.10f, -0.15f));
-            techo1.Add(2, new Punto(-0.15f, 0.20f, 0.0f));
-            techo1.Add(3, new Punto(0.15f, 0.20f, 0.0f));
-            techo1.Add(4, new Punto(0.15F, 0.10f, -0.15f));
+            Parte frontWall = new Parte(shader, "MuroFrontal", new Punto(0.0f, 0.0f, 0.15f), 40.0f);
+            frontWall.Add(1, new Punto(-0.15f, -0.20f, 0.0f));
+            frontWall.Add(2, new Punto(-0.15f,  0.20f, 0.0f));
+            frontWall.Add(3, new Punto( 0.15f,  0.20f, 0.0f));
+            frontWall.Add(4, new Punto( 0.15f, -0.20f, 0.0f));
 
-            Parte techo2 = new Parte(shader, "Techo 2");
-            techo2.Add(1, new Punto(-0.15f, 0.10f, 0.15f));
-            techo2.Add(2, new Punto(-0.15f, 0.20f, 0.0f));
-            techo2.Add(3, new Punto(0.15f, 0.20f, 0.0f));
-            techo2.Add(4, new Punto(0.15f, 0.10f, 0.15f));
-
-            Parte muroFrontal = new Parte(shader, "Muro Frontal");
-            muroFrontal.Add(1, new Punto(-0.15f, -0.20f, 0.15f));
-            muroFrontal.Add(2, new Punto(-0.15f, -0.20f, -0.15f));
-            muroFrontal.Add(3, new Punto(-0.15f, 0.10f, -0.15f));
-            muroFrontal.Add(4, new Punto(-0.15f, 0.10f, 0.15f));
-
-            Parte muroTrasero = new Parte(shader, "Muro Trasero");
-            muroTrasero.Add(5, new Punto(0.15f, -0.20f, 0.15f));
-            muroTrasero.Add(6, new Punto(0.15f, 0.10f, 0.15f));
-            muroTrasero.Add(7, new Punto(0.15F,  0.10f, -0.15f));
-            muroTrasero.Add(8, new Punto(0.15F, -0.20f, -0.15f));
-
-            Parte muroLateralDerecho = new Parte(shader, "Muro Lateral");
-            muroLateralDerecho.Add(1, new Punto(-0.15f, -0.20f, 0.15f));
-            muroLateralDerecho.Add(2, new Punto(-0.15f, 0.10f, 0.15f));
-            muroLateralDerecho.Add(3, new Punto(0.15f, 0.10f, 0.15f));
-            muroLateralDerecho.Add(4, new Punto(0.15f, -0.20f, 0.15f));
-
-            Parte muroLateralIzquiero = new Parte(shader, "Muro Lateral Izquierdo");
-            muroLateralIzquiero.Add(1, new Punto(-0.15f, -0.20f, -0.15f));
-            muroLateralIzquiero.Add(2, new Punto(-0.15f, 0.10f, -0.15f));
-            muroLateralIzquiero.Add(3, new Punto(0.15F, 0.10f, -0.15f));
-            muroLateralIzquiero.Add(4, new Punto(0.15F, -0.20f, -0.15f));
-
-            Parte puerta = new Parte(shader, "Puerta");
-            puerta.Add(5, new Punto(-0.15f, -0.20f, 0.08f));
-            puerta.Add(6, new Punto(-0.15f,  0.05f, 0.08f));
-            puerta.Add(7, new Punto(-0.15f, 0.05f, -0.08f));
-            puerta.Add(8, new Punto(-0.15f, -0.20f, -0.08f));
-
-            Parte ventanaLateralDerecho = new Parte(shader, "Ventana Lateral Derecho");
-            ventanaLateralDerecho.Add(1, new Punto(-0.10f, -0.15f, 0.15f));
-            ventanaLateralDerecho.Add(2, new Punto(-0.10f,  0.05f, 0.15f));
-            ventanaLateralDerecho.Add(3, new Punto( 0.10f,  0.05f, 0.15f));
-            ventanaLateralDerecho.Add(4, new Punto( 0.10f, -0.15f, 0.15f));
-
-            casa = new Objeto("CASA", new Punto(0.5f, 0.0f, 0.0f));
-            casa.Add(techo1);
-            casa.Add(techo2);
-            casa.Add(muroFrontal);
-            casa.Add(muroTrasero);
-            casa.Add(muroLateralDerecho);
-            casa.Add(muroLateralIzquiero);
-            casa.Add(puerta);
-            casa.Add(ventanaLateralDerecho);
-
-            casa2 = new Objeto("CASA", new Punto(-0.5f, 0.0f, 0.0f));
-            casa2.Add(techo1);
-            casa2.Add(techo2);
-            casa2.Add(muroFrontal);
-            casa2.Add(muroTrasero);
-            casa2.Add(muroLateralDerecho);
-            casa2.Add(muroLateralIzquiero);
-            casa2.Add(puerta);
-            casa2.Add(ventanaLateralDerecho);
-
-            //Ver Partes y Puntos
-            casa.Imprimir();
+            Parte rearWall = new Parte(shader, "MuroTrasero", new Punto(0.0f, 0.0f, -0.15f), 40.0f);
+            rearWall.Add(1, new Punto(-0.15f, -0.20f, 0.0f));
+            rearWall.Add(2, new Punto(-0.15f,  0.20f, 0.0f));
+            rearWall.Add(3, new Punto( 0.15f,  0.20f, 0.0f));
+            rearWall.Add(4, new Punto( 0.15f, -0.20f, 0.0f));
             
+            Parte leftWall = new Parte(shader, "MuroIzquierdo", new Punto(-0.15f, 0.0f, 0.0f), 40.0f);
+            leftWall.Add(1, new Punto(0.0f, -0.20f, -0.15f));
+            leftWall.Add(2, new Punto(0.0f,  0.20f, -0.15f));
+            leftWall.Add(3, new Punto(0.0f,  0.20f,  0.15f));
+            leftWall.Add(4, new Punto(0.0f, -0.20f,  0.15f));
+            
+            Parte rightWall = new Parte(shader, "MuroDerecho", new Punto(0.15f, 0.0f, 0.0f), 40.0f);
+            rightWall.Add(1, new Punto(0.0f, -0.20f, -0.15f));
+            rightWall.Add(2, new Punto(0.0f,  0.20f, -0.15f));
+            rightWall.Add(3, new Punto(0.0f,  0.20f,  0.15f));
+            rightWall.Add(4, new Punto(0.0f, -0.20f,  0.15f));
+            
+            //Parte roof1 = new Parte(shader, "Techo1", new Punto(0.0f, 0.0f, 0.0f));
+            //roof1.Add(1, new Punto());
+
+            Parte test = new Parte(shader, "test", new Punto(0.0f, 0.0f, 0.0f), 0.0f);
+            test.Add(1, new Punto(-1.0f, 0.0f, 0.0f));
+            test.Add(2, new Punto(1.0f, 0.0f, 0.0f));
+
+            Parte test2 = new Parte(shader, "test2", new Punto(0.0f, 0.0f, 0.0f), 0.0f);
+            test2.Add(1, new Punto(0.0f, -1.0f, 0.0f));
+            test2.Add(2, new Punto(0.0f, 1.0f, 0.0f));
+
+            casa = new Objeto("Casa", new Punto(0.0f, 0.0f, 0.0f));
+
+            casa.Add(frontWall);
+            casa.Add(rearWall);
+            casa.Add(leftWall);
+            casa.Add(rightWall);
+
+         
+
+            casa2 = new Objeto("Casa 2", new Punto(0.0f, 0.0f, 0.0f));
+
+            casa2.Add(test);
+            casa2.Add(test2);
+            //casa2.Add(frontWall);
+            //casa2.Add(rearWall);
+            //casa2.Add(leftWall);
+            //casa2.Add(rightWall);
+            //Ver Partes y Puntos
+            //casa.Imprimir();
+
         }
 
         protected override void OnRenderFrame(FrameEventArgs args) {
@@ -141,7 +125,7 @@ namespace OpentkProyect
             shader.Use();
 
             casa.Dibujar();
-            casa2.Dibujar();
+            //casa2.Dibujar();
 
             Context.SwapBuffers();
         }

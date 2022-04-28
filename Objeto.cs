@@ -45,8 +45,7 @@ namespace OpentkProyect
 
         public void Dibujar() {
             foreach (KeyValuePair<string, Parte> k in lisParte) {
-                k.Value.MoveTo(origen);
-                k.Value.Dibujar();
+                k.Value.Dibujar(origen);
             }
         }
         public void Imprimir() {

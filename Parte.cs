@@ -8,21 +8,30 @@ namespace OpentkProyect
     public class Parte {
         private Dictionary<int, Punto> vertices;
         private string _name;
-
+        private Punto _origen;
+        private float grado;
         Shader shader;
-        string name{
+        string name {
             get { return _name; }
-            set { _name = value; }        
+            set { _name = value; }
         }
-        public Parte(Shader shader, string name) {
+
+        Punto origen {
+            get { return _origen; }
+            set { _origen = value; }
+        }
+        public Parte(Shader shader, string name, Punto origen, float grado) {
             this.shader = shader;
             this.name = name;
+            this.origen = origen;
+            this.grado = grado;
             vertices = new Dictionary<int, Punto>();
         }
 
-        public Parte(Shader shader, string name, Dictionary<int, Punto> vertices) {
+        public Parte(Shader shader, string name, Punto origen, Dictionary<int, Punto> vertices) {
             this.shader = shader;
             this.name = name;
+            this.origen = origen;
             this.vertices = new Dictionary<int, Punto>();
             foreach (KeyValuePair<int, Punto> k in vertices) {
                 this.vertices.Add(k.Key, k.Value);
@@ -32,6 +41,7 @@ namespace OpentkProyect
         public Parte(Parte p) {
             shader = p.shader;
             name = p.name;
+            origen = p.origen;
             vertices = new Dictionary<int, Punto>();
             vertices = p.vertices;
         }
@@ -51,6 +61,13 @@ namespace OpentkProyect
             vertices.Remove(key);
         }
 
+        public Punto getOrigen() {
+            return origen;
+        }
+
+        public void setOrigen(Punto origen) {
+            this.origen = origen;
+        }
         public float[] CopyToArray() {
             float[] result = new float[vertices.Count * 3];
             int pos = 0;
@@ -64,16 +81,20 @@ namespace OpentkProyect
             }
             return result;
         }
+        public void Dibujar( Punto p) {
+            var origenObjeto = Matrix4.Identity;
+            origenObjeto = origenObjeto * Matrix4.CreateTranslation(p.x, p.y, p.z);
+            shader.SetMatrix4("origenObjeto", origenObjeto);
 
-        public void MoveTo(Punto origen) {
-            var move = Matrix4.Identity;
-            move = move * Matrix4.CreateTranslation(origen.x, origen.y, origen.z);
+            var origenParte = Matrix4.Identity;
+            origenParte = origenParte * Matrix4.CreateTranslation(origen.x, origen.y, origen.z);
+            shader.SetMatrix4("origenParte", origenParte);
 
-            shader.SetMatrix4("origen", move);
-        }
-        public void Dibujar() {
-            float[] array = CopyToArray();
+            var model = Matrix4.Identity * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(grado));
+            shader.SetMatrix4("model", model);
+
             shader.SetVector3("objectColor", new Vector3(0.0f, 0.0f, 0.0f));
+            float[] array = CopyToArray();
             GL.BufferData(BufferTarget.ArrayBuffer, array.Length * sizeof(float), array, BufferUsageHint.StaticDraw);
             GL.DrawArrays(PrimitiveType.LineLoop, 0, vertices.Count);
         }
@@ -84,6 +105,10 @@ namespace OpentkProyect
                 Console.WriteLine("Punto " + k.Key + ": " + k.Value.toString()); ;
             }
             Console.WriteLine("----------------------------------");
+        }
+
+        public void ImprimirOrigen() {
+            Console.WriteLine("X: " + origen.x + " Y: " + origen.y + " Z: " + origen.z);
         }
 
     }
