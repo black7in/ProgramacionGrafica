@@ -6,7 +6,6 @@ using OpenTK.Windowing.Desktop;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
-
 namespace OpentkProyect
 {
     public class Game : GameWindow
@@ -43,9 +42,9 @@ namespace OpentkProyect
 
             view = Matrix4.CreateTranslation(0.0f, 0.0f, -1.5f);
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(50.0f), Size.X / (float)Size.Y, 0.1f, 100.0f);
-            //model = Matrix4.Identity * Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(45.0f));
+            model = Matrix4.Identity * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(40.0f));
 
-            //shader.SetMatrix4("model", model);
+            shader.SetMatrix4("model", model);
             shader.SetMatrix4("projection", projection);
             shader.SetMatrix4("view", view);
 
@@ -61,48 +60,53 @@ namespace OpentkProyect
              *  ventanaLateralDerecho
              */
 
-            Parte frontWall = new Parte(shader, "MuroFrontal", new Punto(0.0f, 0.0f, 0.15f), 40.0f);
-            frontWall.Add(1, new Punto(-0.15f, -0.20f, 0.0f));
-            frontWall.Add(2, new Punto(-0.15f,  0.20f, 0.0f));
-            frontWall.Add(3, new Punto( 0.15f,  0.20f, 0.0f));
-            frontWall.Add(4, new Punto( 0.15f, -0.20f, 0.0f));
+            /*Parte frontWall = new Parte("MuroFrontal", new Punto(0.0f, 0.0f, 0.15f));
+            frontWall.Add("A", new Punto(-0.15f, -0.20f, 0.0f));
+            frontWall.Add("B", new Punto(-0.15f,  0.20f, 0.0f));
+            frontWall.Add("C", new Punto( 0.15f,  0.20f, 0.0f));
+            frontWall.Add("D", new Punto( 0.15f, -0.20f, 0.0f));
+            
 
-            Parte rearWall = new Parte(shader, "MuroTrasero", new Punto(0.0f, 0.0f, -0.15f), 40.0f);
-            rearWall.Add(1, new Punto(-0.15f, -0.20f, 0.0f));
-            rearWall.Add(2, new Punto(-0.15f,  0.20f, 0.0f));
-            rearWall.Add(3, new Punto( 0.15f,  0.20f, 0.0f));
-            rearWall.Add(4, new Punto( 0.15f, -0.20f, 0.0f));
+            Parte rearWall = new Parte("MuroTrasero", new Punto(0.0f, 0.0f, -0.15f));
+            rearWall.Add("A", new Punto(-0.15f, -0.20f, 0.0f));
+            rearWall.Add("B", new Punto(-0.15f,  0.20f, 0.0f));
+            rearWall.Add("C", new Punto( 0.15f,  0.20f, 0.0f));
+            rearWall.Add("D", new Punto( 0.15f, -0.20f, 0.0f));
             
-            Parte leftWall = new Parte(shader, "MuroIzquierdo", new Punto(-0.15f, 0.0f, 0.0f), 40.0f);
-            leftWall.Add(1, new Punto(0.0f, -0.20f, -0.15f));
-            leftWall.Add(2, new Punto(0.0f,  0.20f, -0.15f));
-            leftWall.Add(3, new Punto(0.0f,  0.20f,  0.15f));
-            leftWall.Add(4, new Punto(0.0f, -0.20f,  0.15f));
+            Parte leftWall = new Parte("MuroIzquierdo", new Punto(-0.15f, 0.0f, 0.0f));
+            leftWall.Add("A", new Punto(0.0f, -0.20f, -0.15f));
+            leftWall.Add("B", new Punto(0.0f,  0.20f, -0.15f));
+            leftWall.Add("C", new Punto(0.0f,  0.20f,  0.15f));
+            leftWall.Add("D", new Punto(0.0f, -0.20f,  0.15f));
             
-            Parte rightWall = new Parte(shader, "MuroDerecho", new Punto(0.15f, 0.0f, 0.0f), 40.0f);
-            rightWall.Add(1, new Punto(0.0f, -0.20f, -0.15f));
-            rightWall.Add(2, new Punto(0.0f,  0.20f, -0.15f));
-            rightWall.Add(3, new Punto(0.0f,  0.20f,  0.15f));
-            rightWall.Add(4, new Punto(0.0f, -0.20f,  0.15f));
-            
-            casa = new Objeto("Casa", new Punto(0.5f, 0.0f, 0.0f));
+            Parte rightWall = new Parte("MuroDerecho", new Punto(0.15f, 0.0f, 0.0f));
+            rightWall.Add("A", new Punto(0.0f, -0.20f, -0.15f));
+            rightWall.Add("B", new Punto(0.0f,  0.20f, -0.15f));
+            rightWall.Add("C", new Punto(0.0f,  0.20f,  0.15f));
+            rightWall.Add("D", new Punto(0.0f, -0.20f,  0.15f));
+
+            casa = new Objeto("default", new Punto(0.5f, 0.0f, 0.0f));
             casa.Add(frontWall);
             casa.Add(rearWall);
             casa.Add(leftWall);
             casa.Add(rightWall);
+            */
 
-            casa2 = new Objeto("Casa 2", new Punto(-0.5f, 0.0f, 0.0f));
-            casa2.Add(frontWall);
-            casa2.Add(rearWall);
-            casa2.Add(leftWall);
-            casa2.Add(rightWall);
+            Json json = new Json();
+
+            //json.serializeObjeto(casa, "Casa");
+
+            casa = json.deserializeObjeto("Casa.json");
+            casa.setCentro(new Punto(0.5f, 0.0f, 0.0f));
+            casa.setName("CASA 1");
+
+            casa2 = json.deserializeObjeto("Casa.json");
+            casa2.setCentro(new Punto(-0.5f, 0.0f, 0.0f));
+            casa2.setName("CASA 2");
 
             escenario = new Escenario("Mi Primero Escenario");
             escenario.Add(casa);
             escenario.Add(casa2);
-
-            //Ver Partes y Puntos
-            //casa.Imprimir();
         }
 
         protected override void OnRenderFrame(FrameEventArgs args) {
@@ -112,8 +116,7 @@ namespace OpentkProyect
             GL.BindVertexArray(vertexArrayObject);
             shader.Use();
 
-            escenario.Dibujar();
-            //casa2.Dibujar();
+            escenario.Dibujar(shader);
 
             Context.SwapBuffers();
         }

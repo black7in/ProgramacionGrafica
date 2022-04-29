@@ -31,9 +31,9 @@ namespace OpentkProyect
             listObjeto.Remove(key);
         }
 
-        public void Dibujar() {
+        public void Dibujar(Shader shader) {
             foreach (KeyValuePair<string, Objeto> k in listObjeto) {
-                k.Value.Dibujar();
+                k.Value.Dibujar(shader);
             }
         }
     }
