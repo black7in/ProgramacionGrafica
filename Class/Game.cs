@@ -22,12 +22,10 @@ namespace OpentkProyect
         private Matrix4 model;
 
         Escenario escenario;
-        Objeto casa;
-        Objeto casa2;
         protected override void OnLoad() {
             base.OnLoad();
 
-            GL.ClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+            GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
             vertexBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
@@ -42,65 +40,21 @@ namespace OpentkProyect
 
             view = Matrix4.CreateTranslation(0.0f, 0.0f, -1.5f);
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(50.0f), Size.X / (float)Size.Y, 0.1f, 100.0f);
-            model = Matrix4.Identity * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(40.0f));
+            model = Matrix4.Identity * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(-30.0f));
 
             shader.SetMatrix4("model", model);
             shader.SetMatrix4("projection", projection);
             shader.SetMatrix4("view", view);
 
-            /*  PARTES DEL OBJETO CASA.
-             *  techo1
-             *  techo2
-             *  muroFrontal
-             *  muroTrasero
-             *  muroLateralIzquierdo
-             *  muroLateralDerecho
-             *  puerta
-             *  ventanaLateraIzquiero
-             *  ventanaLateralDerecho
-             */
-
-            /*Parte frontWall = new Parte("MuroFrontal", new Punto(0.0f, 0.0f, 0.15f));
-            frontWall.Add("A", new Punto(-0.15f, -0.20f, 0.0f));
-            frontWall.Add("B", new Punto(-0.15f,  0.20f, 0.0f));
-            frontWall.Add("C", new Punto( 0.15f,  0.20f, 0.0f));
-            frontWall.Add("D", new Punto( 0.15f, -0.20f, 0.0f));
-            
-
-            Parte rearWall = new Parte("MuroTrasero", new Punto(0.0f, 0.0f, -0.15f));
-            rearWall.Add("A", new Punto(-0.15f, -0.20f, 0.0f));
-            rearWall.Add("B", new Punto(-0.15f,  0.20f, 0.0f));
-            rearWall.Add("C", new Punto( 0.15f,  0.20f, 0.0f));
-            rearWall.Add("D", new Punto( 0.15f, -0.20f, 0.0f));
-            
-            Parte leftWall = new Parte("MuroIzquierdo", new Punto(-0.15f, 0.0f, 0.0f));
-            leftWall.Add("A", new Punto(0.0f, -0.20f, -0.15f));
-            leftWall.Add("B", new Punto(0.0f,  0.20f, -0.15f));
-            leftWall.Add("C", new Punto(0.0f,  0.20f,  0.15f));
-            leftWall.Add("D", new Punto(0.0f, -0.20f,  0.15f));
-            
-            Parte rightWall = new Parte("MuroDerecho", new Punto(0.15f, 0.0f, 0.0f));
-            rightWall.Add("A", new Punto(0.0f, -0.20f, -0.15f));
-            rightWall.Add("B", new Punto(0.0f,  0.20f, -0.15f));
-            rightWall.Add("C", new Punto(0.0f,  0.20f,  0.15f));
-            rightWall.Add("D", new Punto(0.0f, -0.20f,  0.15f));
-
-            casa = new Objeto("default", new Punto(0.5f, 0.0f, 0.0f));
-            casa.Add(frontWall);
-            casa.Add(rearWall);
-            casa.Add(leftWall);
-            casa.Add(rightWall);
-            */
-
             Json json = new Json();
 
             //json.serializeObjeto(casa, "Casa");
 
-            casa = json.deserializeObjeto("Casa.json");
+            Objeto casa = json.deserializeObjeto("Casa.json", shader);
             casa.setCentro(new Punto(0.5f, 0.0f, 0.0f));
             casa.setName("CASA 1");
 
-            casa2 = json.deserializeObjeto("Casa.json");
+            Objeto casa2 = json.deserializeObjeto("Casa.json", shader);
             casa2.setCentro(new Punto(-0.5f, 0.0f, 0.0f));
             casa2.setName("CASA 2");
 
@@ -116,7 +70,7 @@ namespace OpentkProyect
             GL.BindVertexArray(vertexArrayObject);
             shader.Use();
 
-            escenario.Dibujar(shader);
+            escenario.Dibujar();
 
             Context.SwapBuffers();
         }

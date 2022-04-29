@@ -17,10 +17,14 @@ namespace OpentkProyect
             File.WriteAllText(file, jsonResult);
         }
 
-        public Objeto deserializeObjeto(string file) { 
+        public Objeto deserializeObjeto(string file, Shader shader) { 
             string jsonString = File.ReadAllText("../../../Objects/" + file);
 
             Objeto resultObjeto = JsonSerializer.Deserialize<Objeto>(jsonString)!;
+
+            foreach (KeyValuePair<string, Parte> k in resultObjeto.listParte) {
+                k.Value.setShader(shader);
+            }
             return resultObjeto;
         }
 

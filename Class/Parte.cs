@@ -11,6 +11,8 @@ namespace OpentkProyect
         private string _name;
         private Punto _center;
 
+        private Shader shader;
+
         public string name {
             get { return _name; }
             set { _name = value; }
@@ -19,6 +21,7 @@ namespace OpentkProyect
         public Punto center {
             get { return _center; }
             set { _center = value; }
+
         }
         public Dictionary<string, Punto> vertices {
             get { return _vertices; }
@@ -29,6 +32,7 @@ namespace OpentkProyect
             name = "";
             center = new Punto(0.0f, 0.0f, 0.0f);
             vertices = new Dictionary<string, Punto>();
+            shader = new Shader("../../../Shaders/shader.vert", "../../../Shaders/shader.frag");
         }
 
         public Parte(string name, Punto center) {
@@ -46,13 +50,13 @@ namespace OpentkProyect
             }
         }
 
-        /*public Parte(Parte p) {
-            //shader = p.shader;
+        public Parte(Parte p) {
+            shader = p.shader;
             name = p.name;
-            origen = p.origen;
+            center = p.center;
             vertices = new Dictionary<string, Punto>();
             vertices = p.vertices;
-        }*/
+        }
 
         public string getName() {
             return name;
@@ -61,6 +65,7 @@ namespace OpentkProyect
         public void setName(string name) {
             this.name = name;
         }
+
         public void Add(string key, Punto punto) {
             vertices.Add(key, punto);
         }
@@ -76,6 +81,11 @@ namespace OpentkProyect
         public void setCenter(Punto origen) {
             this.center = origen;
         }
+
+        public void setShader(Shader shader) {
+            this.shader = shader;
+        }
+
         public float[] CopyToArray() {
             float[] result = new float[vertices.Count * 3];
             int pos = 0;
@@ -89,7 +99,7 @@ namespace OpentkProyect
             }
             return result;
         }
-        public void Dibujar( Shader shader, Punto p) {
+        public void Dibujar( Punto p) {
             var origenObjeto = Matrix4.Identity;
             origenObjeto = origenObjeto * Matrix4.CreateTranslation(p.x, p.y, p.z);
             shader.SetMatrix4("origenObjeto", origenObjeto);
@@ -98,7 +108,7 @@ namespace OpentkProyect
             origenParte = origenParte * Matrix4.CreateTranslation(center.x, center.y, center.z);
             shader.SetMatrix4("origenParte", origenParte);
 
-            shader.SetVector3("objectColor", new Vector3(0.0f, 0.0f, 0.0f));
+            shader.SetVector3("objectColor", new Vector3(1.0f, 1.0f, 1.0f));
             
             float[] array = CopyToArray();
             GL.BufferData(BufferTarget.ArrayBuffer, array.Length * sizeof(float), array, BufferUsageHint.StaticDraw);

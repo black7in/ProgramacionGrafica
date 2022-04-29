@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace OpentkProyect
 {
@@ -8,12 +6,15 @@ namespace OpentkProyect
         private string _name;
         private Dictionary<string, Objeto> listObjeto;
 
-
         public string name {
             set { _name = value; }
             get { return _name; }
         }
 
+        public Escenario() {
+            name = "Test";
+            listObjeto = new Dictionary<string, Objeto>();
+        }
         public Escenario(string name) {
             this.name = name;
             listObjeto = new Dictionary<string, Objeto>();
@@ -31,9 +32,9 @@ namespace OpentkProyect
             listObjeto.Remove(key);
         }
 
-        public void Dibujar(Shader shader) {
+        public void Dibujar() {
             foreach (KeyValuePair<string, Objeto> k in listObjeto) {
-                k.Value.Dibujar(shader);
+                k.Value.Dibujar();
             }
         }
     }
