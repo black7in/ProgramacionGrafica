@@ -50,13 +50,16 @@ namespace OpentkProyect
 
             //json.serializeObjeto(casa, "Casa");
 
-            Objeto casa = json.deserializeObjeto("Casa.json", shader);
+            Objeto casa = json.deserializeObjeto("Casa.json"/*, shader*/);
             casa.setCentro(new Punto(0.5f, 0.0f, 0.0f));
             casa.setName("CASA 1");
+            casa.setShader(shader);
 
-            Objeto casa2 = json.deserializeObjeto("Casa.json", shader);
+            Objeto casa2 = json.deserializeObjeto("Casa.json"/*, shader*/);
             casa2.setCentro(new Punto(-0.5f, 0.0f, 0.0f));
             casa2.setName("CASA 2");
+            casa2.setShader(shader);
+            
 
             escenario = new Escenario("Mi Primero Escenario");
             escenario.Add(casa);
@@ -73,6 +76,8 @@ namespace OpentkProyect
             escenario.Dibujar();
 
             Context.SwapBuffers();
+
+            IDrawable test = new Escenario();
         }
 
         protected override void OnResize(ResizeEventArgs e) {

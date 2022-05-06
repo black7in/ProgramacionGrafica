@@ -60,6 +60,12 @@ namespace OpentkProyect
         public void setName(string name) {
             this.name = name;
         }
+
+        public void setShader(Shader shader) {
+            foreach (KeyValuePair<string, Parte> k in listParte) {
+                k.Value.setShader(shader);
+            }
+        }
         public void Dibujar() {
             foreach (KeyValuePair<string, Parte> k in listParte) {
                 k.Value.Dibujar(centro);

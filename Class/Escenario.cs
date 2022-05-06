@@ -2,7 +2,7 @@
 
 namespace OpentkProyect
 {
-    public class Escenario {
+    public class Escenario: IDrawable {
         private string _name;
         private Dictionary<string, Objeto> listObjeto;
 
@@ -36,6 +36,14 @@ namespace OpentkProyect
             foreach (KeyValuePair<string, Objeto> k in listObjeto) {
                 k.Value.Dibujar();
             }
+        }
+
+        public void Rotar() { 
+        
+        }
+
+        public void Scale() { 
+        
         }
     }
 }
