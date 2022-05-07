@@ -6,7 +6,8 @@ namespace OpentkProyect
 {
     interface IDrawable {
         void Dibujar();
-        void Rotar();
-        void Scale();
+        void Rotar(float grado);
+        void Escalar( float width_x, float height_y);
+        void Trasladar(float position_x, float position_y);
     }
 }

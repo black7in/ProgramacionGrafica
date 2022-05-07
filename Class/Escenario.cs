@@ -38,12 +38,20 @@ namespace OpentkProyect
             }
         }
 
-        public void Rotar() { 
+        public void Rotar(float grado) { 
         
         }
 
-        public void Scale() { 
-        
+        public void Trasladar(float position_x, float position_y) {
+            foreach(KeyValuePair<string, Objeto> k in listObjeto) {
+                k.Value.Trasladar(position_x, position_y);
+            }
+        }
+
+        public void Escalar(float width_x, float height_y) {
+            foreach (KeyValuePair<string, Objeto> k in listObjeto) {
+                k.Value.Escalar(width_x, height_y);
+            }
         }
     }
 }

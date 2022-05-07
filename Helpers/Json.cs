@@ -18,7 +18,7 @@ namespace OpentkProyect
         }
 
         public Objeto deserializeObjeto(string file) { 
-            string jsonString = File.ReadAllText("../../../Objects/" + file);
+            string jsonString = File.ReadAllText("Objects/" + file);
 
             Objeto resultObjeto = JsonSerializer.Deserialize<Objeto>(jsonString)!;
 

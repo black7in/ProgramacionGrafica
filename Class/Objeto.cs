@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using OpenTK.Mathematics;
 
 namespace OpentkProyect
 {
-    public class Objeto
-    {
+    public class Objeto: IDrawable {
         private string _name;
         private Dictionary<string, Parte> _listParte;
         private Punto _centro;
@@ -13,10 +13,12 @@ namespace OpentkProyect
             get { return _name; }
             set { _name = value; }
         }
+
         public Punto centro {
             get { return _centro; }
             set { _centro = value; }
         }
+
         public Dictionary<string, Parte> listParte {
             get { return _listParte; }
             set { _listParte = value; }
@@ -50,6 +52,15 @@ namespace OpentkProyect
             listParte.Add(parte.getName(), parte);
         }
 
+        public Parte getParte(string key) {
+            Parte result = listParte[key];
+            /*foreach (KeyValuePair<string, Parte> k in listParte) {
+                if (k.Key == key)
+                    result = k.Value;
+            }*/
+
+            return result;
+        }
         public void Delete(string key) {
             listParte.Remove(key);
         }
@@ -57,18 +68,30 @@ namespace OpentkProyect
         public void setCentro(Punto centro) {
             this.centro = centro;
         }
+
         public void setName(string name) {
             this.name = name;
         }
 
-        public void setShader(Shader shader) {
-            foreach (KeyValuePair<string, Parte> k in listParte) {
-                k.Value.setShader(shader);
-            }
-        }
         public void Dibujar() {
             foreach (KeyValuePair<string, Parte> k in listParte) {
                 k.Value.Dibujar(centro);
+            }
+        }
+
+        public void Rotar(float grado) { 
+        
+        }
+
+        public void Escalar(float width_x, float height_y) {
+            foreach (KeyValuePair<string, Parte> k in listParte) {
+                k.Value.Escalar(width_x, height_y);
+            }
+        }
+
+        public void Trasladar(float position_x, float position_y) {
+            foreach (KeyValuePair<string, Parte> k in listParte){
+                k.Value.Trasladar(position_x, position_y);
             }
         }
     }

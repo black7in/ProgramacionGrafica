@@ -12,14 +12,8 @@ namespace OpentkProyect
     {
         public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
 
-        Shader shader;
-
         private int vertexBufferObject;
         private int vertexArrayObject;
-
-        private Matrix4 projection;
-        private Matrix4 view;
-        private Matrix4 model;
 
         Escenario escenario;
         protected override void OnLoad() {
@@ -36,34 +30,26 @@ namespace OpentkProyect
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
             
-            shader = new Shader("../../../Shaders/shader.vert", "../../../Shaders/shader.frag");
-
-            view = Matrix4.CreateTranslation(0.0f, 0.0f, -1.5f);
-            projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(50.0f), Size.X / (float)Size.Y, 0.1f, 100.0f);
-            model = Matrix4.Identity * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(-30.0f));
-
-            shader.SetMatrix4("model", model);
-            shader.SetMatrix4("projection", projection);
-            shader.SetMatrix4("view", view);
 
             Json json = new Json();
 
             //json.serializeObjeto(casa, "Casa");
 
-            Objeto casa = json.deserializeObjeto("Casa.json"/*, shader*/);
-            casa.setCentro(new Punto(0.5f, 0.0f, 0.0f));
-            casa.setName("CASA 1");
-            casa.setShader(shader);
+            Objeto casa = json.deserializeObjeto("Casa1.json");
 
-            Objeto casa2 = json.deserializeObjeto("Casa.json"/*, shader*/);
-            casa2.setCentro(new Punto(-0.5f, 0.0f, 0.0f));
-            casa2.setName("CASA 2");
-            casa2.setShader(shader);
+            Parte parte = casa.getParte("MuroFrontal");
+            //parte.Escalar(1.0f, 2.0f, 1.0f);
+            parte.Rotar(25.0f);
+
+            casa.Escalar(1.0f, 1.0f);
+            //casa.Trasladar(0.5f, 0.5f);
+
+           // Objeto casa2 = json.deserializeObjeto("Casa2.json");
             
 
             escenario = new Escenario("Mi Primero Escenario");
             escenario.Add(casa);
-            escenario.Add(casa2);
+            //escenario.Add(casa2);
         }
 
         protected override void OnRenderFrame(FrameEventArgs args) {
@@ -71,13 +57,9 @@ namespace OpentkProyect
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.Enable(EnableCap.DepthTest);
             GL.BindVertexArray(vertexArrayObject);
-            shader.Use();
 
             escenario.Dibujar();
-
             Context.SwapBuffers();
-
-            IDrawable test = new Escenario();
         }
 
         protected override void OnResize(ResizeEventArgs e) {
