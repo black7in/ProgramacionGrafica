@@ -13,10 +13,11 @@ namespace OpentkProyect
 
         private Shader shader;
         private Matrix4 projection;
-        private Matrix4 trans;
         private Matrix4 model;
+
         private Matrix4 scale;
         private Matrix4 rotar;
+        private Matrix4 trans;
 
         public string name {
             get { return _name; }
@@ -33,17 +34,21 @@ namespace OpentkProyect
             set { _vertices = value; }
         }
 
-        public Parte(){
+        public Parte() {
             name = "";
             center = new Punto(0.0f, 0.0f, 0.0f);
             vertices = new Dictionary<string, Punto>();
             shader = new Shader("../../../Shaders/shader.vert", "../../../Shaders/shader.frag");
 
-            trans = Matrix4.CreateTranslation(0.0f, 0.0f, -1.5f);
-            projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(50.0f), 1000 / (float)800, 0.1f, 100.0f);
-            model = Matrix4.Identity * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(-30.0f));
-            scale = Matrix4.CreateScale(1.0f, 1.0f, 1.0f);
-            rotar = Matrix4.Identity * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(0.0f));
+            projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(100.0f), 1000 / (float)800, 0.1f, 100.0f);
+            model = Matrix4.Identity;
+            //model = model * Matrix4.CreateTranslation(0.0f, 0.0f, -1.0f);
+
+            rotar = Matrix4.Identity;
+            //rotar = rotar * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(-30.0f));
+            scale = Matrix4.Identity;
+            trans = Matrix4.Identity;
+            trans = trans * Matrix4.CreateTranslation(0.0f, 0.0f, -1.0f);
         }
 
         public Parte(string name, Punto center) {
@@ -110,11 +115,10 @@ namespace OpentkProyect
         }
         public void Dibujar( Punto p) {
             shader.Use();
-            shader.SetMatrix4("model", model);
             shader.SetMatrix4("projection", projection);
-            shader.SetMatrix4("trans", trans);
+            shader.SetMatrix4("rotar", rotar);
             shader.SetMatrix4("scale", scale);
-            //shader.SetMatrix4("rotar", rotar);
+            shader.SetMatrix4("trans", trans);
 
             var origenObjeto = Matrix4.Identity;
             origenObjeto = origenObjeto * Matrix4.CreateTranslation(p.x, p.y, p.z);
@@ -131,31 +135,21 @@ namespace OpentkProyect
             GL.DrawArrays(PrimitiveType.LineLoop, 0, vertices.Count);
         }
         
-
-        public void Rotar(float grado){
-            rotar = Matrix4.Identity * Matrix4.CreateRotationX(MathHelper.DegreesToRadians(grado));
+        public void Rotar(float angulo, float x, float y, float z){
+            if(x > 0)
+                rotar = rotar * Matrix4.CreateRotationX(MathHelper.DegreesToRadians(angulo));
+            if(y > 0)
+                rotar = rotar * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(angulo));
+            if(z > 0)
+                rotar = rotar * Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(angulo));
         }
 
-        public void Escalar(float width_x, float height_y) {
-            scale = Matrix4.CreateScale(width_x, height_y, 1.0f);
+        public void Escalar( float x, float y, float z ) {
+            scale = scale *  Matrix4.CreateScale(x, y, z);
         }
 
-        public void Trasladar(float position_x, float position_y){
-            trans = Matrix4.CreateTranslation(position_x, position_y, -1.5f);
-        }
-
-        public string toString()
-        {
-            string result = "";
-            result += "----------------------------------\n";
-            result += "Nombre: " + name + "\n";
-            foreach (KeyValuePair<string, Punto> k in vertices)
-            {
-                result += "Punto " + k.Key + ": " + k.Value.toString() + "\n";
-            }
-            result += "----------------------------------\n";
-
-            return result;
+        public void Trasladar(float position_x, float position_y, float position_z){
+            trans = trans * Matrix4.CreateTranslation(position_x, position_y, position_z);
         }
     }
 }

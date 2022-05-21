@@ -1,20 +1,23 @@
-﻿using System;
-using OpenTK.Windowing.Desktop;
-using OpenTK.Mathematics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace OpentkProyect
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args) {
-            var nativeWindowSettings = new NativeWindowSettings() {
-                Size = new Vector2i(1000, 800),
-                Title = "Programacion Grafica.",
-            };
-
-            using (var game = new Game(GameWindowSettings.Default, nativeWindowSettings)) {
-                game.Run();
-            }
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
     }
 }
